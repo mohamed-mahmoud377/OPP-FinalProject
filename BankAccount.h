@@ -7,7 +7,7 @@
 
 
 #include "AccountOwner.h"
-
+class AccountOwenr;
 class BankAccount {
 protected:
     AccountOwner *accountOwner;
