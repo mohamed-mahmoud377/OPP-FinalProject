@@ -12,6 +12,8 @@ private:
     string lastName;
     string phoneNUm;
     string ID;
+    string userID;
+    string password;
 
 public:
     AccountOwner();
@@ -32,6 +34,14 @@ public:
       string getId() const;
 
     bool setId(const string &id);
+
+     string getUserId() const;
+
+    void setUserId(const string &userId);
+
+     string getPassword() const;
+
+    void setPassword(const string &password);
 
     virtual ~AccountOwner();
 

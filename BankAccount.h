@@ -9,6 +9,7 @@
 #include "AccountOwner.h"
 
 class BankAccount {
+protected:
     AccountOwner *accountOwner;
     double balance;
     double startingBalance;
@@ -41,7 +42,7 @@ public:
 
     double getBalance() const;
 
-    void setBalance(double balance);
+    bool setBalance(double balance);
 
     double getStartingBalance() const;
 
@@ -57,7 +58,7 @@ public:
 
     double getAnnualInterestRate() const;
 
-    void setAnnualInterestRate(double annualInterestRate);
+    bool setAnnualInterestRate(double annualInterestRate);
 
     double getMonthlyServiceCharges() const;
 

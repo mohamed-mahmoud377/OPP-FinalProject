@@ -6,7 +6,7 @@
 
 
 BankAccount::BankAccount() {
-    accountOwner = nullptr;
+    accountOwner =new AccountOwner;
     balance = -1;
     startingBalance = -1;
     numOfDeposits = -1;
@@ -38,6 +38,7 @@ bool BankAccount::withdraw(double withdraw) {
 
     balance-=withdraw;
     numOfWithdrawals++;
+    return true;
 }
 
 void BankAccount::calInt() {
@@ -56,6 +57,7 @@ void BankAccount::monthlyPro() {
     and then sets the variables that hold the number of withdrawals, number of deposits,
     and monthly service charges to zero.*/
     balance -= monthlyServiceCharges;
+    calInt();
     numOfWithdrawals=0;
     numOfDeposits =0;
 
@@ -80,8 +82,12 @@ double BankAccount::getBalance() const {
     return balance;
 }
 
-void BankAccount::setBalance(double balance) {
-    BankAccount::balance = balance;
+bool BankAccount::setBalance(double balance) {
+    if(balance<0){
+        return false;
+    }
+    this->balance = balance;
+    return true;
 }
 
 double BankAccount::getStartingBalance() const {
@@ -112,8 +118,13 @@ double BankAccount::getAnnualInterestRate() const {
     return annualInterestRate;
 }
 
-void BankAccount::setAnnualInterestRate(double annualInterestRate) {
-    this->annualInterestRate = annualInterestRate;
+bool BankAccount::setAnnualInterestRate(double annualInterestRate) {
+    if(annualInterestRate>=0 && annualInterestRate<=1){
+        this->annualInterestRate=annualInterestRate;
+        return true;
+    }
+    return false;
+
 }
 
 double BankAccount::getMonthlyServiceCharges() const {

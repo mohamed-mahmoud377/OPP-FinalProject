@@ -13,6 +13,8 @@ AccountOwner::AccountOwner() {
     lastName= "none";
     phoneNUm = "none";
     ID = "none";
+    userID= "none";
+    password="none";
 }
 
 AccountOwner::AccountOwner( string &firstName,  string &lastName,  string &phoneNUm,  string &id)
@@ -78,6 +80,22 @@ bool AccountOwner::setId(const string &id) {
     this->ID= id;
     return true;
 
+}
+
+ string AccountOwner::getUserId() const {
+    return userID;
+}
+
+void AccountOwner::setUserId(const string &userId) {
+    userID = userId;
+}
+
+ string AccountOwner::getPassword() const {
+    return password;
+}
+
+void AccountOwner::setPassword(const string &password) {
+    AccountOwner::password = password;
 }
 
 AccountOwner::~AccountOwner() = default;
