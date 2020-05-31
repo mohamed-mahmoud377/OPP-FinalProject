@@ -40,7 +40,7 @@ bool AccountOwner::setFirstName(const string &firstName) {
 }
 
 bool AccountOwner::setLastName(const string &lastName) {
-    for(auto const &i : firstName){
+    for(auto const &i : lastName){
         if(isdigit(i) || !isprint(i))
             return false;
     }
@@ -54,7 +54,8 @@ bool AccountOwner::setLastName(const string &lastName) {
 }
 
 bool AccountOwner::setPhoneNUm(const string &phoneNUm) {
-    if(phoneNUm.size()!=11){
+    //change that to 11
+    if(phoneNUm.size()!=2){
         return false;
     }
     for(auto const &i: phoneNUm){
@@ -70,10 +71,12 @@ bool AccountOwner::setPhoneNUm(const string &phoneNUm) {
 }
 
 bool AccountOwner::setId(const string &id) {
-  if(id.size()!=14){
+    //change that to 14
+
+    if(id.size()!=2){
       return false;
   }
-    for(auto const &i: phoneNUm){
+    for(auto const &i: id){
         if(!isdigit(i))
             return false;
     }

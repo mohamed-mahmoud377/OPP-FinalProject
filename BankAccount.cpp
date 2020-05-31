@@ -9,10 +9,11 @@ BankAccount::BankAccount() {
     accountOwner =new AccountOwner;
     balance = -1;
     startingBalance = -1;
-    numOfDeposits = -1;
-    numOfWithdrawals = -1;
+    numOfDeposits = 0;
+    numOfWithdrawals =0;
     annualInterestRate =-1;
-    monthlyServiceCharges=-1;
+    monthlyServiceCharges=0;
+    type = "Base";
 }
 
 
@@ -83,7 +84,7 @@ double BankAccount::getBalance() const {
 }
 
 bool BankAccount::setBalance(double balance) {
-    if(balance<0){
+    if(balance<=0){
         return false;
     }
     this->balance = balance;
@@ -141,4 +142,12 @@ void BankAccount::setMonthlyServiceCharges(double monthlyServiceCharges) {
 BankAccount::~BankAccount() {
     delete accountOwner;
 
+}
+
+const string &BankAccount::getType() const {
+    return type;
+}
+
+void BankAccount::setType(const string &type) {
+    BankAccount::type = type;
 }

@@ -13,10 +13,12 @@ protected:
     AccountOwner *accountOwner;
     double balance;
     double startingBalance;
+
     int numOfDeposits;
     int numOfWithdrawals;
     double annualInterestRate;
     double monthlyServiceCharges ;
+    string type;
 public:
 
 
@@ -62,9 +64,12 @@ public:
 
     double getMonthlyServiceCharges() const;
 
+
     void setMonthlyServiceCharges(double monthlyServiceCharges);
 
+    const string &getType() const;
 
+    void setType(const string &type);
 
 
     virtual ~BankAccount();
