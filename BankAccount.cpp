@@ -13,6 +13,8 @@ BankAccount::BankAccount() {
     numOfWithdrawals =0;
     annualInterestRate =-1;
     monthlyServiceCharges=0;
+    monthlyInterestRate = (annualInterestRate/12);
+
     type = "Base";
 }
 
@@ -43,12 +45,14 @@ bool BankAccount::withdraw(double withdraw) {
 }
 
 void BankAccount::calInt() {
+    double monthlyInterest=0;
     // Monthly Interest Rate = (Annual Interest Rate / 12)
     //Monthly Interest = Balance * Monthly Interest Rate
     //Balance = Balance + Monthly Interest
-    double monthlyRate = (annualInterestRate/12);
-    monthlyRate *= balance;
-    balance += monthlyRate;
+//    double monthlyRate = (annualInterestRate/12);
+  setMonthlyInterestRate();
+     monthlyInterest= balance *monthlyInterestRate;
+    balance +=monthlyInterest;
 
 }
 
@@ -61,6 +65,7 @@ void BankAccount::monthlyPro() {
     calInt();
     numOfWithdrawals=0;
     numOfDeposits =0;
+
 
 }
 
@@ -151,3 +156,12 @@ const string &BankAccount::getType() const {
 void BankAccount::setType(const string &type) {
     BankAccount::type = type;
 }
+
+double BankAccount::getMonthlyInterestRate() const {
+    return monthlyInterestRate;
+}
+
+void BankAccount::setMonthlyInterestRate() {
+    monthlyInterestRate=(annualInterestRate/12);
+}
+

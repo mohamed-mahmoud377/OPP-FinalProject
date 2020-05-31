@@ -18,7 +18,9 @@ protected:
     int numOfWithdrawals;
     double annualInterestRate;
     double monthlyServiceCharges ;
+    double monthlyInterestRate;
     string type;
+
 public:
 
 
@@ -33,6 +35,7 @@ public:
     virtual bool withdraw(double withdraw);
     virtual void calInt();
     virtual void monthlyPro();
+    virtual void displayMonthStatistics()=0 ;
 
 
 
@@ -70,6 +73,10 @@ public:
     const string &getType() const;
 
     void setType(const string &type);
+
+    double getMonthlyInterestRate() const;
+
+    void setMonthlyInterestRate();
 
 
     virtual ~BankAccount();

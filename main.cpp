@@ -28,8 +28,9 @@ void loadHardCodedData( vector<BankAccount*>& accounts){
     saving1->getAccountOwner()->setUserId("jerry");
     saving1->getAccountOwner()->setPassword("jerry");
     saving1->getAccountOwner()->setFirstName("jerry");
-    saving1->setBalance(500);
-    saving1->setStartingBalance(500);
+    saving1->setBalance(10);
+    saving1->setStartingBalance(10);
+    saving1->setAnnualInterestRate(.14);
 
 
     accounts.push_back(saving1);
@@ -52,6 +53,12 @@ void loadHardCodedData( vector<BankAccount*>& accounts){
     checking2->getAccountOwner()->setUserId("amira");
     checking2->getAccountOwner()->setPassword("amira");
     checking2->getAccountOwner()->setFirstName("amira");
+    checking2->setBalance(1000);
+    checking2->setStartingBalance(1000);
+    checking2->setAnnualInterestRate(.14);
+
+
+
 
     accounts.push_back(checking2);
 
@@ -126,6 +133,12 @@ BankAccount*singUp(const vector<BankAccount *>& accounts){
 
     }
     currentUser->getAccountOwner()->setPassword(string_input);
+    cout<<"enter your annual Interest Rate"<<endl;
+    cin>>int_input;
+    while(!currentUser->setAnnualInterestRate(int_input)){
+        cout<<"the annual interest rate is not right only between (0-1)"<<endl;
+        cin>>int_input;
+    }
     cout<<"enter your national ID (14 digits) :"<<endl;
     cin>>string_input;
     while(!currentUser->getAccountOwner()->setId(string_input)){
@@ -220,7 +233,11 @@ while(!exit) {
             cout << "exception is caught" << endl;
         }
     }
+    if(currentUser->getType()=="Checking"){
+        currentUser->setMonthlyServiceCharges(5);
+    }
     while (true) {
+
         cout<<"welcome , "<< currentUser->getAccountOwner()->getFirstName()<<endl;
         cout<<"your account type : "<<currentUser->getType()<<"\n\n"<<endl;
         cout<<"[1] show balance "<<endl;
@@ -263,14 +280,66 @@ while(!exit) {
 
 
         }else if(string_input=="3"){
+            cout<<"how much money to withdraw ?"<<endl;
+            wronginput :
+            cin>>int_input;
+            if(!cin){
+                cerr<<"enter a integer value !"<<endl;
+                cin.clear();
 
+                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                goto wronginput;
+            }
+            int check =0;
+            while(!currentUser->withdraw(int_input)){
+
+                if(currentUser->getType()=="Saving"){
+                    cout<<"sorry your account is inactive or you dont have enough money for this withdraw\n"<<endl;
+                }else if(currentUser->getType()=="Checking"){
+                    cout<<" sorry there isn’t enough in the account to pay the service charge\n"<<endl;
+                }
+                cout<<"want to try again (y/n)?"<<endl;
+                cin>>string_input;
+                if(string_input=="y"){
+                    cout<<"how much money to withdraw ?"<<endl;
+                    cin>>int_input;
+
+                }else {
+                    check=1;
+                    break;
+                }
+            }
+            if(check==0) {
+                cout << "transferring money ..." << endl;
+                sleep(3);
+                cout << "money withdraw has been done successfully" << endl;
+                cout << "your current balance is " << currentUser->getBalance() << endl;
+                sleep(3);
+
+
+            }
+            check=0;
         }else if(string_input=="4"){
+            currentUser->monthlyPro();
+            cout<<"your monthly services : "<<currentUser->getMonthlyServiceCharges()<<endl;
+            currentUser->setMonthlyInterestRate();
+            cout<<"your monthly interest rate :"<<currentUser->getAnnualInterestRate()<<endl;
+            cout<<"applying monthly fees"<<endl;
+            currentUser->setMonthlyServiceCharges(0);
+            sleep(2);
+            cout<<"your balance now after applying fees and interest is  "<<currentUser->getBalance()<<endl;
+
 
         }else if(string_input=="5"){
+            currentUser->displayMonthStatistics();
+            sleep(6);
+
 
         }else if(string_input=="6"){
+            break;
 
         }else if(string_input=="7"){
+            exit = true;
             break;
         }else {
             cerr<<"wrong input"<<endl;
